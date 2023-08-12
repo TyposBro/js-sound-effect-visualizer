@@ -8,8 +8,13 @@
   </head>
   <body>
     <div id="container">
-      <canvas id="canvas1"> </canvas>
-      <audio id="audio1" src="" controls></audio>
+      <div class="controls">
+        <label id="label" for="input">Upload</label>
+        <audio id="audio" src="" controls></audio>
+        <input type="file" name="audio" id="input" accept="audio/*" />
+        <label id="hous">Hous, you click here</label>
+      </div>
+      <canvas id="canvas"> </canvas>
     </div>
 
     <script type="module" src="./js/main.js"></script>
