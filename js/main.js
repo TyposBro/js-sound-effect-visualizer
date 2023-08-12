@@ -1,34 +1,38 @@
-import { getElem } from "./utils.js";
-import { vandals_date } from "../assets/base64.js";
+import { getElem, getAnalyser, getAudioCtx } from "./utils.js";
+import { draw } from "./draw.js";
 
 // *****ELEMENT SETUP*****
-const audio = new Audio(`data:audio/x-wav;base64,${vandals_date}`);
-// const audioCtx = new AudioContext();
 const container = getElem("#container");
+const canvas = getElem("#canvas");
+const input = getElem("#input");
+const audio = getElem("#audio");
+const hous = getElem("#hous");
 
 // *****CANVAS SETUP*****
-const canvas = getElem("#canvas1");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let audioSource;
-let analyser;
+let audioContext = null;
+let audioSource = null;
+let analyser = null;
 
-// test
-container.addEventListener("click", () => {
-  const audioCtx = new AudioContext();
-
+// *****FILE UPLOAD*****
+input.addEventListener("change", (e) => {
+  e.stopPropagation();
+  const file = URL.createObjectURL(e.target.files[0]);
+  audio.src = file;
+  audio.load();
+  audio.loop = true;
   audio.play();
-  audioSource = audioCtx.createMediaElementSource(audio);
-  analyser = audioCtx.createAnalyser();
-  audioSource.connect(analyser);
-  analyser.connect(audioCtx.destination);
-  analyser.fftSize = 2048;
+  canvas.scrollIntoView({ behavior: "smooth" });
+  audioContext = getAudioCtx(audioContext);
+  analyser = getAnalyser(audioContext, audio);
+
   const bufferLength = analyser.frequencyBinCount;
   const dataArray = new Uint8Array(bufferLength);
 
-  const barWidth = canvas.width / bufferLength;
+  const barWidth = 15;
   let barHeight;
   let x = 0;
 
@@ -36,12 +40,7 @@ container.addEventListener("click", () => {
     x = 0;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     analyser.getByteFrequencyData(dataArray);
-    dataArray.forEach((item) => {
-      barHeight = item;
-      ctx.fillStyle = `rgba(${barHeight + 100}, 50, 50, 0.5)`;
-      ctx.fillRect(x, canvas.height - barHeight, barWidth + 10, barHeight);
-      x += barWidth + 10;
-    });
+    draw(ctx, bufferLength, x, barWidth, barHeight, dataArray);
     requestAnimationFrame(animate);
   }
   animate();
