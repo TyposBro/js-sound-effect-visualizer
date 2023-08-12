@@ -5,7 +5,6 @@ import { draw } from "./draw.js";
 const canvas = getElem("#canvas");
 const input = getElem("#input");
 const audio = getElem("#audio");
-const hous = getElem("#hous");
 
 // *****CANVAS SETUP*****
 const ctx = canvas.getContext("2d");
@@ -44,9 +43,6 @@ input.addEventListener("change", (e) => {
   animate();
 });
 
-// *****SPECIAL EDITION*****
-hous.addEventListener("click", () => play("hous"));
-
 const play = (file) => {
   audio.src = `./assets/${file}.mp3`;
   audio.load();
@@ -72,3 +68,11 @@ const play = (file) => {
   }
   animate();
 };
+
+// *****SPECIAL EDITION*****
+const hous = getElem("#hous");
+const fato = getElem("#fato");
+const nub = getElem("#nub");
+hous.addEventListener("click", () => play("hous"));
+fato.addEventListener("click", () => play("fato"));
+nub.addEventListener("click", () => play("nub"));
