@@ -44,10 +44,11 @@ input.addEventListener("change", (e) => {
   animate();
 });
 
-// *****HOUS EDITION*****
-hous.addEventListener("click", (e) => {
-  const file = "./assets/date.mp3";
-  audio.src = file;
+// *****SPECIAL EDITION*****
+hous.addEventListener("click", () => play("hous"));
+
+const play = (file) => {
+  audio.src = `./assets/${file}.mp3`;
   audio.load();
   audio.loop = true;
   audio.play();
@@ -70,4 +71,4 @@ hous.addEventListener("click", (e) => {
     requestAnimationFrame(animate);
   }
   animate();
-});
+};
