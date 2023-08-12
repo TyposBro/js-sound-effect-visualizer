@@ -2,11 +2,10 @@ import { getElem, getAnalyser, getAudioCtx } from "./utils.js";
 import { draw } from "./draw.js";
 
 // *****ELEMENT SETUP*****
-const container = getElem("#container");
+const hous = getElem("#hous");
 const canvas = getElem("#canvas");
 const input = getElem("#input");
 const audio = getElem("#audio");
-const hous = getElem("#hous");
 
 // *****CANVAS SETUP*****
 const ctx = canvas.getContext("2d");
