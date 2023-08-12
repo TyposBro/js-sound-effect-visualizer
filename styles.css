@@ -41,22 +41,23 @@
 #input {
   display: none;
 }
-#label {
-  /* z-index: 100; */
-  background-color: #333399;
+label {
   color: white;
   padding: 0.5rem;
   font-family: sans-serif;
   border-radius: 0.3rem;
   cursor: pointer;
 }
+#label {
+  background-color: #333399;
+}
 
 #hous {
-  /* z-index: 100; */
   background: linear-gradient(to right, #333399, #ff00cc);
-  color: white;
-  padding: 0.5rem;
-  font-family: sans-serif;
-  border-radius: 0.3rem;
-  cursor: pointer;
+}
+#fato {
+  background: linear-gradient(to right, #ff00cc, #ef32d9);
+}
+#nub {
+  background: linear-gradient(to right, #ef32d9, #89fffd);
 }
