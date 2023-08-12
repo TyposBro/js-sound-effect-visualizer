@@ -9,9 +9,18 @@ export const convertToBase64 = (file) => {
   });
 };
 
-// Usage
-// const file = document.querySelector("#fileInput").files[0]; // Assuming you have a file input element with id 'fileInput'
+export const getAudioCtx = (ctx) => {
+  if (ctx) return ctx;
 
-// convertToBase64(file).then((data) => {
-//   console.log(data); // This will log the base64 string of the audio file
-// });
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  return new AudioContext();
+};
+
+export const getAnalyser = (ctx, audioElement) => {
+  const audioSource = ctx.createMediaElementSource(audioElement);
+  const analyser = ctx.createAnalyser();
+  audioSource.connect(analyser);
+  analyser.connect(ctx.destination);
+  analyser.fftSize = 512;
+  return analyser;
+};
